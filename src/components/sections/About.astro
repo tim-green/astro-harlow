@@ -1,0 +1,21 @@
+---
+import SpecsAccordion from "../utils/SpecsAccordion.astro";
+---
+
+<section class="mb-section pt-8">
+    <header class="mb-8 grid gap-4 md:grid-cols-2 md:gap-8">
+        <h2 class="text-title">
+             Specifications
+        </h2>
+        <p class="text-sm opacity-50 md:text-base">
+            with more than 20+ years of experiencie, we always develop
+            a deeper expertise for you
+        </p>
+    </header>
+    <section class="grid gap-8 md:grid-cols-2">
+        <SpecsAccordion open={1}/>
+        <div class="w-full aspect-square rounded-br-[10rem] overflow-hidden">
+            <img class="w-full h-full object-cover" src="assets/images/buildings/build_05.jpg" alt="some building">
+        </div>
+    </section>
+</section>
