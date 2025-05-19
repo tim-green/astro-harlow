@@ -1,0 +1,35 @@
+---
+import PillButton from "../utils/PillButton.astro";
+import FeatureCard from "../utils/FeatureCard.astro";
+---
+<section class="mb-section">
+ 
+    <div class="grid gap-12 mb-8 pt-8 md:grid-cols-2">
+        <h2 class="text-title mb-0">floor plans & features</h2>
+        <aside class="flex flex-wrap gap-4 text-sm md:justify-items-end">
+            <PillButton>
+                2 bedrooms
+            </PillButton>
+            <PillButton>
+                3 bedrooms
+            </PillButton>
+            <PillButton>
+                4 bedrooms
+            </PillButton>
+        </aside>
+    </div>
+    <div class="h-[40rem] grid gap-4 md:h-[30rem] md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 [&>*]:overflow-hidden">
+        <div class="w-full h-full lg:col-span-2">
+            <FeatureCard src="assets/images/buildings/build_01.jpg" alt="harlow alt" title="outside living"/>
+        </div>
+        <div class="w-full h-full lg:row-span-2">
+            <FeatureCard src="assets/images/buildings/build_02.jpg" alt="harlow alt" title="bathroom"/>
+        </div>
+        <div class="w-full h-full lg:row-span-2">
+            <FeatureCard src="assets/images/buildings/build_03.jpg" alt="harlow alt" title="kitchen"/>
+        </div>
+        <div class="w-full h-full lg:col-span-2">
+            <FeatureCard src="assets/images/buildings/build_04.jpg" alt="harlow alt" title="inside living"/>
+        </div>
+    </div>
+</section>
