@@ -1,0 +1,19 @@
+@tailwind components;
+
+@layer components{
+    /*Effects*/
+    .yellow{
+        @apply bg-gradient-to-r from-amber-100 to-amber-300 text-transparent bg-clip-text;
+    }
+
+    /*Writing*/
+    .text-title{
+        @apply yellow text-2xl font-medium md:text-3xl;
+    }
+
+    /*Spacing*/
+    .mb-section{
+        @apply mb-12;
+    }
+}
+
