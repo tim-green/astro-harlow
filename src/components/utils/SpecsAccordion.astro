@@ -2,62 +2,90 @@
 import aboutJSON from "../../data/specs.json";
 
 interface Props {
-	open?: number;
+  open?: number;
 }
+
 const { open } = Astro.props;
 ---
 
+
 <script>
-	const accordion = document.getElementById("accordion");
-	if (!accordion) throw new ReferenceError();
-
-	accordion.addEventListener("click", (e) => {
-		const target = e.target as HTMLElement;
-		const dataset = { ...target.dataset };
-
-		const content = target.nextElementSibling as HTMLElement;
-		const arrow = target.querySelector("img") as HTMLElement;
-
-		if (!arrow || !content) throw new ReferenceError();
-
-		switch (dataset.status) {
-			case "disabled":
-				content.style.gridTemplateRows = "1fr";
-				target.dataset.status = "enabled";
-				arrow.style.rotate = "135deg";
-				break;
-			case "enabled":
-				content.style.gridTemplateRows = "0fr";
-				target.dataset.status = "disabled";
-				arrow.style.rotate = "45deg";
-				break;
-			default:
-				break;
-		}
-	});
+  document.addEventListener('DOMContentLoaded', () => {
+    const accordionHeaders = document.querySelectorAll('[data-accordion-header]');
+    
+    // Function to close all accordions
+    const closeAllAccordions = () => {
+      accordionHeaders.forEach((header) => {
+        const content = header.nextElementSibling as HTMLElement;
+        const arrow = header.querySelector('img') as HTMLElement;
+        
+        content.style.gridTemplateRows = '0fr';
+        header.setAttribute('data-status', 'disabled');
+        arrow.style.rotate = '45deg';
+      });
+    };
+    
+    // Add click event listener to each accordion header
+    accordionHeaders.forEach((header) => {
+      header.addEventListener('click', () => {
+        const content = header.nextElementSibling as HTMLElement;
+        const arrow = header.querySelector('img') as HTMLElement;
+        const status = header.getAttribute('data-status');
+        
+        if (status === 'disabled') {
+          // Close all accordions first
+          closeAllAccordions();
+          
+          // Then open the clicked one
+          content.style.gridTemplateRows = '1fr';
+          header.setAttribute('data-status', 'enabled');
+          arrow.style.rotate = '135deg';
+        } else {
+          // If it's already open, just close it
+          content.style.gridTemplateRows = '0fr';
+          header.setAttribute('data-status', 'disabled');
+          arrow.style.rotate = '45deg';
+        }
+      });
+    });
+  });
 </script>
+
 <div>
-	<ul id="accordion" class="flex items-center flex-col gap-6">
-		{
-			aboutJSON.map((e, i) => {
-				return (
-					<li class="border-slate-400 border-b-[1px]">
-						<header class="flex justify-between cursor-pointer [&>*]:pointer-events-none opacity-80 hover:opacity-100" data-status={`${i === open ? "enabled" : "disabled"}`}>
-							<h3 class="text-lg font-extralight md:text-xl">
-								{e.title}
-							</h3>
-							<img class="w-8 transition-[rotate]" src="assets/svg/arrow.svg" alt="arrow" style={`${i === open ? "rotate : 45deg;" : "rotate : 135deg;" }`} />
-						</header>
-						<div class="grid transition-all" style={`${ i === open ? "grid-template-rows: 1fr;" : "grid-template-rows: 0fr;"}`}>
-							<div class="h-full overflow-hidden normal-case">
-								<p class="mb-4 pt-2 text-sm opacity-50 md:text-base">
-									{e.description}
-								</p>
-							</div>
-						</div>
-					</li>
-				);
-			})
-		}
-	</ul>
+  <ul id="accordion" class="flex items-center flex-col gap-6">
+    {
+      aboutJSON.map((e, i) => {
+        return (
+          <li class="border-slate-400 border-b-[1px]">
+            <header 
+              class="flex justify-between cursor-pointer [&>*]:pointer-events-none opacity-80 hover:opacity-100" 
+              data-status="disabled"
+              data-accordion-header
+            >
+              <h3 class="text-lg font-extralight md:text-xl">
+                {e.title}
+              </h3>
+              <img 
+                class="w-8 transition-[rotate]" 
+                src="assets/svg/arrow.svg" 
+                alt="arrow" 
+                style="rotate: 45deg;" 
+              />
+            </header>
+            <div 
+              class="grid transition-all" 
+              style="grid-template-rows: 0fr;"
+              data-accordion-content
+            >
+              <div class="h-full overflow-hidden normal-case">
+                <p class="mb-4 pt-2 text-sm opacity-50 md:text-base">
+                  {e.description}
+                </p>
+              </div>
+            </div>
+          </li>
+        );
+      })
+    }
+  </ul>
 </div>
