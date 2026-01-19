@@ -2,7 +2,7 @@
   "name": "harlow",
   "author": "Tim Green",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
